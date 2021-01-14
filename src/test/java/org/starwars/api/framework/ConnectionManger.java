@@ -15,20 +15,7 @@ public class ConnectionManger {
     }
 
     public static Response getConnection(String endPoint) {
-        setEndPoint(endPoint);
         return RestAssured.get(BASEURL + endPoint);
-    }
-
-    public static void setEndPoint(String endPoint) {
-        ConnectionManger.endPoint = endPoint;
-    }
-
-    public static String getEndPoint() {
-        return endPoint;
-    }
-
-    public static ValidatableResponse getStatusCode() {
-        return getConnection(getEndPoint()).then().assertThat().statusCode(200);
     }
 
 

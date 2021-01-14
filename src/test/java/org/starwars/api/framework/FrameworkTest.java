@@ -11,13 +11,13 @@ public class FrameworkTest {
 
     @BeforeAll
     public static void setup() {
-        personDTO = (PersonDTO) Injector.personDTO("/people/1");
+        personDTO = (PersonDTO) Injector.injectIntoDTO("/people/1");
     }
 
     @Test
     @DisplayName("check status code is 200")
     void checkStatusCodeIs200() {
-        ConnectionManger.getStatusCode();
+        Assertions.assertEquals(200, personDTO.getStatuCode());
     }
 
     @Test
@@ -26,7 +26,10 @@ public class FrameworkTest {
         Assertions.assertTrue(personDTO.minHeightValueCheck(0));
     }
 
-
-    
+    @Test
+    @DisplayName("check gender")
+    void checkGender() {
+        Assertions.assertTrue(personDTO.checkGender());
+    }
 
 }
