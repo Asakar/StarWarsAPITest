@@ -1,16 +1,25 @@
 package org.starwars.api.framework.dtos;
 
-public class DTOFactory {
+import io.restassured.response.Response;
+import org.starwars.api.framework.ConnectionManger;
 
-    public static StarWarsDTO getSorter(String url) {
+public class DTOFactory {
+    private static Response response;
+
+    public static StarWarsDTO getDTO(String url) {
+        response = ConnectionManger.getConnection(url);
+//        return response.getBody().as(PersonDTO.class);
         switch (url) {
-            case "person":
-                return new PersonDTO();
-            case "planets":
-                return new PlanetsDTO();
+            case "/people/1/":
+                return response.getBody().as(PersonDTO.class);
+            case "/planets/1":
+                return response.getBody().as(PlanetsDTO.class);
             default:
                 return null;
         }
     }
 
+    public static Response getResponse() {
+        return response;
+    }
 }

@@ -11,7 +11,7 @@ public class FrameworkTest {
 
     @BeforeAll
     public static void setup() {
-        personDTO = (PersonDTO) Injector.personDTO(ConnectionManger.getConnection("/people/1"));
+        personDTO = (PersonDTO) Injector.personDTO("/people/1");
     }
 
     @Test

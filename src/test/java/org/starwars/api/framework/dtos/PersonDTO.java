@@ -1,6 +1,7 @@
 package org.starwars.api.framework.dtos;
 
 import io.restassured.response.Response;
+import org.starwars.api.framework.ConnectionManger;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class PersonDTO extends StarWarsDTO {
     private String created;
     private String edited;
     private String url;
+    private Response response;
 
     public PersonDTO() {
     }
@@ -170,8 +172,16 @@ public class PersonDTO extends StarWarsDTO {
         return getGender().matches("(n/a|male|female)");
     }
 
+    public void setResponse(Response response) {
+        this.response = response;
+    }
+
+    public Response getResponse() {
+        return response;
+    }
+
     public static void main(String[] args) {
-        PersonDTO personDTO = new PersonDTO();
+//        PersonDTO personDTO = new PersonDTO();
     }
 
 
