@@ -8,7 +8,7 @@ import io.restassured.response.ValidatableResponse;
 public class ConnectionManger {
 
     private static final String BASEURL = "https://swapi.dev/api";
-    private static String endPoint = "";
+    private static String endPoint;
 
     public static Response getConnection() {
         return RestAssured.get(BASEURL);

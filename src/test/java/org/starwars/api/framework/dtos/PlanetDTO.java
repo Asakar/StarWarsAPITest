@@ -1,7 +1,9 @@
 package org.starwars.api.framework.dtos;
 
 import io.restassured.response.Response;
+import org.starwars.api.framework.injecting.Injector;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlanetDTO extends StarWars {
@@ -15,8 +17,8 @@ public class PlanetDTO extends StarWars {
     private String terrain;
     private String surface_water;
     private String population;
-    private List<Object> residents = null;
-    private List<String> films = null;
+    private List<String> residents;
+    private List<String> films;
     private String created;
     private String edited;
     private String url;
@@ -97,16 +99,24 @@ public class PlanetDTO extends StarWars {
         this.population = population;
     }
 
-    public List<Object> getResidents() {
-        return residents;
+    public List<PersonDTO> getResidents() {
+        ArrayList<PersonDTO> actors = new ArrayList<>();
+        for (String character : residents) {
+            actors.add(Injector.getPeople(character.substring(character.length()-2)));
+        }
+        return actors;
     }
 
-    public void setResidents(List<Object> residents) {
+    public void setResidents(List<String> residents) {
         this.residents = residents;
     }
 
-    public List<String> getFilms() {
-        return films;
+    public List<FilmDTO> getFilms() {
+        ArrayList<FilmDTO> movies = new ArrayList<>();
+        for (String film : films) {
+            movies.add(Injector.getFilms(film.substring(film.length()-2)));
+        }
+        return movies;
     }
 
     public void setFilms(List<String> films) {

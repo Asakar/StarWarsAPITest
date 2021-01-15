@@ -1,6 +1,7 @@
 package org.starwars.api.framework.injecting;
 
 import org.starwars.api.framework.dtos.*;
+import org.starwars.api.framework.factory.DTOFactory;
 
 public class Injector {
 
@@ -27,11 +28,39 @@ public class Injector {
         return (PlanetDTO) injectIntoDTO("/planets/" + planet);
     }
 
+    public static FilmsDTO getFilms() {
+        return (FilmsDTO) injectIntoDTO("/films");
+    }
+
+    public static FilmDTO getFilms(String film) {
+        return (FilmDTO) injectIntoDTO("/films/" + film);
+    }
+
+    public static SpeciesDTO getSpeciesDTO() {
+        return (SpeciesDTO) injectIntoDTO("/species");
+    }
+
+    public static ASpeciesDTO getSpeciesDTO(String species) {return (ASpeciesDTO) injectIntoDTO("/species/" + species);}
+
+    public static StarShipsDTO getStarShips() {
+        return (StarShipsDTO) injectIntoDTO("/starships");
+    }
+
+    public static StarShipDTO getStarShips(String starship) {
+        return (StarShipDTO) injectIntoDTO("/starships/" + starship);
+    }
+
+    public static VehiclesDTO getVehicles() {
+        return (VehiclesDTO) injectIntoDTO("/vehicles");
+    }
+
+    public static VehicleDTO getVehicles(String vehicles) {
+        return (VehicleDTO) injectIntoDTO("/vehicles/" + vehicles);
+    }
+
     public static void main(String[] args) {
-        PersonDTO dto = getPeople("1");
-        System.out.println(dto.getHashMap().size());
-        System.out.println(dto.getHashMap().get("name"));
-//        System.out.println(dto.mapDTO().get("name"));
+        StarShipDTO starShipDTO = getStarShips("9");
+        System.out.println(starShipDTO.getCargo_capacity());
     }
 
 

@@ -1,18 +1,12 @@
 package org.starwars.api.framework.dtos;
 
-import java.util.HashMap;
 import java.util.List;
 
-public class PeopleDTO extends StarWars {
-
+public class SpeciesDTO extends StarWars {
     private int count;
     private String next;
     private Object previous;
-    private List<PersonDTO> results;
-
-    public int getCount() {
-        return count;
-    }
+    private List<ASpeciesDTO> results = null;
 
     public void setCount(int count) {
         this.count = count;
@@ -34,11 +28,15 @@ public class PeopleDTO extends StarWars {
         this.previous = previous;
     }
 
-    public List<PersonDTO> getResults() {
+    public int getCount() {
+        return count;
+    }
+
+    public List<ASpeciesDTO> getResults() {
         return results;
     }
 
-    public void setResults(List<PersonDTO> results) {
+    public void setResults(List<ASpeciesDTO> results) {
         this.results = results;
     }
 }

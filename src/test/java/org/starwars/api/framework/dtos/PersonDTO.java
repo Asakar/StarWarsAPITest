@@ -1,9 +1,8 @@
 package org.starwars.api.framework.dtos;
 
-import io.restassured.response.Response;
+import org.starwars.api.framework.injecting.Injector;
 
-import java.lang.reflect.Array;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PersonDTO extends StarWars {
@@ -17,7 +16,7 @@ public class PersonDTO extends StarWars {
     private String gender;
     private String homeworld;
     private List<String> films;
-    private List<Object> species;
+    private List<String> species;
     private List<String> vehicles;
     private List<String> starships;
     private String created;
@@ -99,38 +98,6 @@ public class PersonDTO extends StarWars {
         this.homeworld = homeworld;
     }
 
-    public List<String> getFilms() {
-        return films;
-    }
-
-    public void setFilms(List<String> films) {
-        this.films = films;
-    }
-
-    public List<Object> getSpecies() {
-        return species;
-    }
-
-    public void setSpecies(List<Object> species) {
-        this.species = species;
-    }
-
-    public List<String> getVehicles() {
-        return vehicles;
-    }
-
-    public void setVehicles(List<String> vehicles) {
-        this.vehicles = vehicles;
-    }
-
-    public List<String> getStarships() {
-        return starships;
-    }
-
-    public void setStarships(List<String> starships) {
-        this.starships = starships;
-    }
-
     public String getCreated() {
         return created;
     }
@@ -155,8 +122,52 @@ public class PersonDTO extends StarWars {
         this.url = url;
     }
 
-    public boolean typCheck(Response response, String name) {
-        return getName().getClass() == String.class;
+    public List<FilmDTO> getFilms() {
+        ArrayList<FilmDTO> movies = new ArrayList<>();
+        for (String film : films) {
+            movies.add(Injector.getFilms(film.substring(film.length()-2)));
+        }
+        return movies;
+    }
+
+    public void setFilms(List<String> films) {
+        this.films = films;
+    }
+
+    public ArrayList<ASpeciesDTO> getSpecies() {
+        ArrayList<ASpeciesDTO> species = new ArrayList<>();
+        for (String temp : this.species) {
+            species.add(Injector.getSpeciesDTO(temp.substring(temp.length()-2)));
+        }
+        return species;
+    }
+
+    public void setSpecies(List<String> species) {
+        this.species = species;
+    }
+
+    public ArrayList<VehicleDTO> getVehicles() {
+        ArrayList<VehicleDTO> vehicles = new ArrayList<>();
+        for (String vehicle : this.vehicles) {
+            vehicles.add(Injector.getVehicles(vehicle.substring(vehicle.length()-2)));
+        }
+        return vehicles;
+    }
+
+    public void setVehicles(List<String> vehicles) {
+        this.vehicles = vehicles;
+    }
+
+    public ArrayList<StarShipDTO> getStarships() {
+        ArrayList<StarShipDTO> starships = new ArrayList<>();
+        for (String starship : this.starships) {
+            starships.add(Injector.getStarShips(starship.substring(starship.length()-2)));
+        }
+        return starships;
+    }
+
+    public void setStarships(List<String> starships) {
+        this.starships = starships;
     }
 
     public boolean minHeightValueCheck(int min) {
@@ -166,51 +177,5 @@ public class PersonDTO extends StarWars {
     public boolean checkGender() {
         return getGender().matches("(n/a|male|female)");
     }
-
-    public boolean checkIfNotEmptyORNull(String url) {
-        String response = getResponse().then().extract().path(url);
-        return response != null || response.length() != 0;
-    }
-
-    public boolean checkIfStartsWithCapitalLetter(String url) {
-        return getResponse().then().extract().path(url).toString().substring(0,1).matches("[A-Z]");
-    }
-
-    public boolean checkIFContainsSpaces(String url) {
-        return getResponse().then().extract().path(url).toString().contains(" ");
-    }
-
-//    public boolean checkIFContainsSpaces() {
-//        int count = 0;
-//        HashMap hashMap = getHashMap();
-//        for (Object o : hashMap.entrySet()) {
-//            if (o == String.class) {
-//                if (((String) o).contains(" ")) {
-//                    count++;
-//                    System.out.println(o);
-//                }
-//            }
-////            assert o instanceof String[];
-//                for (String s : (String[]) o) {
-//                    if(s.contains(" ")) {
-//                        count++;
-//                        System.out.println(s);
-//                    }
-//                }
-//        }
-//        System.out.println(count);
-//        return count == 1;
-//    }
-
-
-    public boolean checkNoOfKeys() {
-        return getHashMap().size() == 16;
-    }
-
-    public static void main(String[] args) {
-        PersonDTO personDTO = new PersonDTO();
-
-    }
-
 
 }
