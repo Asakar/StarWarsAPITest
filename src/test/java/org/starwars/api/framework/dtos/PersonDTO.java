@@ -2,6 +2,8 @@ package org.starwars.api.framework.dtos;
 
 import io.restassured.response.Response;
 
+import java.lang.reflect.Array;
+import java.util.HashMap;
 import java.util.List;
 
 public class PersonDTO extends StarWars {
@@ -157,11 +159,6 @@ public class PersonDTO extends StarWars {
         return getName().getClass() == String.class;
     }
 
-//    public boolean hasHeight() {
-//        return getHeight().getClass() == String.class;
-//
-//    }
-
     public boolean minHeightValueCheck(int min) {
         return getHeight() > min;
     }
@@ -170,8 +167,49 @@ public class PersonDTO extends StarWars {
         return getGender().matches("(n/a|male|female)");
     }
 
+    public boolean checkIfNotEmptyORNull(String url) {
+        String response = getResponse().then().extract().path(url);
+        return response != null || response.length() != 0;
+    }
+
+    public boolean checkIfStartsWithCapitalLetter(String url) {
+        return getResponse().then().extract().path(url).toString().substring(0,1).matches("[A-Z]");
+    }
+
+    public boolean checkIFContainsSpaces(String url) {
+        return getResponse().then().extract().path(url).toString().contains(" ");
+    }
+
+//    public boolean checkIFContainsSpaces() {
+//        int count = 0;
+//        HashMap hashMap = getHashMap();
+//        for (Object o : hashMap.entrySet()) {
+//            if (o == String.class) {
+//                if (((String) o).contains(" ")) {
+//                    count++;
+//                    System.out.println(o);
+//                }
+//            }
+////            assert o instanceof String[];
+//                for (String s : (String[]) o) {
+//                    if(s.contains(" ")) {
+//                        count++;
+//                        System.out.println(s);
+//                    }
+//                }
+//        }
+//        System.out.println(count);
+//        return count == 1;
+//    }
+
+
+    public boolean checkNoOfKeys() {
+        return getHashMap().size() == 16;
+    }
+
     public static void main(String[] args) {
-//        PersonDTO personDTO = new PersonDTO();
+        PersonDTO personDTO = new PersonDTO();
+
     }
 
 

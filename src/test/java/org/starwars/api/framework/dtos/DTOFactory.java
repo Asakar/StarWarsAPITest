@@ -1,10 +1,13 @@
 package org.starwars.api.framework.dtos;
 
 import io.restassured.response.Response;
-import org.starwars.api.framework.ConnectionManger;
+import org.starwars.api.framework.connecting.ConnectionManger;
+
+import java.util.HashMap;
 
 public class DTOFactory {
     private static Response response;
+
 
     public static StarWars getDTO(String url) {
         response = ConnectionManger.getConnection(url);
@@ -30,4 +33,10 @@ public class DTOFactory {
     public static Response getResponse() {
         return response;
     }
+
+    public static HashMap mapDTO() {
+        HashMap map = getResponse().getBody().as(HashMap.class);
+        return map;
+    }
+
 }

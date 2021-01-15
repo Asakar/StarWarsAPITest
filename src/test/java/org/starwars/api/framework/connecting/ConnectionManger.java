@@ -1,4 +1,4 @@
-package org.starwars.api.framework;
+package org.starwars.api.framework.connecting;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
