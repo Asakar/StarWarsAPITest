@@ -58,10 +58,4 @@ public class Injector {
         return (VehicleDTO) injectIntoDTO("/vehicles/" + vehicles);
     }
 
-    public static void main(String[] args) {
-        StarShipDTO starShipDTO = getStarShips("9");
-        System.out.println(starShipDTO.getCargo_capacity());
-    }
-
-
 }
